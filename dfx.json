@@ -1,0 +1,35 @@
+{
+  "canisters": {
+    "emailer_backend": {
+      "main": "src/emailer_backend/main.mo",
+      "type": "motoko"
+    },
+    "emailer_frontend": {
+      "dependencies": [
+        "emailer_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/emailer_frontend/src/index.html"
+      },
+      "source": [
+        "src/emailer_frontend/assets",
+        "dist/emailer_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "dfx": "0.11.2",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "version": 1
+}
