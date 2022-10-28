@@ -1,0 +1,59 @@
+html {
+  background-image: linear-gradient(
+    to right,
+    rgba(240, 238, 244, 1),
+    rgba(239, 237, 244, 1),
+    rgba(209, 199, 232, 1)
+  );
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+.email-form {
+  display: flex;
+  flex-direction: column;
+  width: 555px;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.email-form input,
+.email-form textarea {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  border: none;
+  padding: 16px;
+}
+.email-form > * {
+  margin-bottom: 1rem;
+}
+.email-form button {
+  width: 555px;
+  height: 48px;
+
+  background: #3b00b9;
+  border: 2px solid #3b00b9;
+  border-radius: 10px;
+  color: #ffffff;
+}
+.email-form .error {
+  border: 1px solid rgb(175, 40, 40);
+}
+.email-form .error-text {
+  color: rgb(175, 40, 40);
+  padding: 0;
+  margin: 0;
+}
+
+.Toastify > div {
+  width: 555px;
+}

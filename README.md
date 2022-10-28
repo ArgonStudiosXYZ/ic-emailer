@@ -12,6 +12,13 @@ To learn more before you start working with emailer, see the following documenta
 - [Motoko Language Quick Reference](https://sdk.dfinity.org/docs/language-guide/language-manual.html)
 - [JavaScript API Reference](https://erxue-5aaaa-aaaab-qaagq-cai.raw.ic0.app)
 
+Version 12 is required for http outcalls
+
+```bash
+DFX_VERSION=0.12.0-beta.3 sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)"
+
+```
+
 If you want to start working on your project right away, you might want to try the following commands:
 
 ```bash
@@ -29,7 +36,7 @@ If you want to test your project locally, you can use the following commands:
 dfx start --background
 
 # Deploys your canisters to the replica and generates your candid interface
-dfx deploy
+./scripts/deploy.sh local <canister-api-key>
 ```
 
 Once the job completes, your application will be available at `http://localhost:8000?canisterId={asset_canister_id}`.
