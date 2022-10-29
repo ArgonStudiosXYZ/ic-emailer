@@ -1,5 +1,5 @@
 import Text "mo:base/Text";
-import Cycles "mo:base/ExperimentalCycles";
+// import Cycles "mo:base/ExperimentalCycles";
 import Error "mo:base/Error";
 import Debug "mo:base/Debug";
 import Nat16 "mo:base/Nat16";
@@ -7,7 +7,9 @@ import Nat "mo:base/Nat";
 import Result "mo:base/Result";
 import Blob "mo:base/Blob";
 import T "types";
-
+import UUID "mo:uuid/UUID";
+import Source "mo:uuid/Source";
+import XorShift "mo:rand/XorShift";
 actor class Emailer(courierApiKey : Text) {
   private var _courierApiKey = courierApiKey;
 
@@ -15,6 +17,11 @@ actor class Emailer(courierApiKey : Text) {
     #Ok : Text;
     #Err : Text;
   } {
+    let rr = XorShift.toReader(XorShift.XorShift64(null));
+	  let c : [Nat8] = [0, 0, 0, 0, 0, 0]; // Replace with identifier of canister f.e.et g = Source.Source();
+    let g = Source.Source(rr, c);
+    let id = g.new();
+    Debug.print(UUID.toText(id));
     Debug.print(_courierApiKey);
     let request_headers = [
       { name = "User-Agent"; value = "exchange_rate_canister" },
@@ -32,7 +39,7 @@ actor class Emailer(courierApiKey : Text) {
       transform = #function(transform);
     };
     try {
-      Cycles.add(250_126_800_000);
+      // Cycles.add(250_126_800_000);
       let ic : T.IC = actor ("aaaaa-aa");
       let response = await ic.http_request(request);
       switch (Text.decodeUtf8(Blob.fromArray(response.body))) {
