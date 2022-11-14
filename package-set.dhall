@@ -3,21 +3,17 @@ let aviate-labs = https://github.com/aviate-labs/package-set/releases/download/v
 
 let Package = { name : Text, version : Text, repo : Text, dependencies : List Text }
 let additions = [
-  { name = "io"
-  , repo = "https://github.com/aviate-labs/io.mo"
-  , version = "v0.3.0"
-  , dependencies = [ "base" ]
-  },
-  { name = "rand"
-  , repo = "https://github.com/aviate-labs/rand.mo"
-  , version = "v0.2.1"
-  , dependencies = [ "base" ]
-  },
   { name = "uuid"
-  , version = "88871a6e1801c61ba54d42966f08be0604bb2a2d"
+  , version = "v0.2.0"
   , repo = "https://github.com/aviate-labs/uuid.mo"
   , dependencies = [ "base", "encoding", "io" ]
   },
+  {
+    name = "base",
+    repo = "https://github.com/dfinity/motoko-base",
+    version = "master",
+    dependencies = [] : List Text
+  }
 ] : List Package
 
 in  upstream # aviate-labs # additions

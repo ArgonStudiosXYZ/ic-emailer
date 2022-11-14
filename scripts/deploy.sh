@@ -1,9 +1,10 @@
 #!/bin/bash
 
+
 # Call the script with deploy.sh {network}
-if [[ $# -lt 2 ]]; then
+if [[ $# -lt 1 ]]; then
     echo "Number of arguments supplied not correct. Call this script: \
-    ./deploy.sh {env} {courierApiKey} \
+    ./deploy.sh {env} \
     env should be one of the networks configured in dfx.json."
     exit 1
 fi
@@ -11,6 +12,8 @@ fi
 
 ENV=$1
 COURIER_API_KEY=$2
+
+dfx build
 
 bash ./scripts/cleanup.sh $ENV
 
@@ -24,10 +27,16 @@ if [[ $ENV == "local" ]]; then
         echo "dfx 0.12.0 or above required. Please do: dfx upgrade"
         exit 1
     fi
+
+    if ! [ -x "$(command -v vessel)" ]; then
+        echo 'Error: vessel is not installed.' >&2
+        exit 1
+    fi
+
     
     # Start local replica
     dfx start --background
 fi
 
 # Deploy exchange_rate and exchange_rate_assets
-dfx deploy  --argument "(\"${COURIER_API_KEY}\")" --network "$ENV"
+dfx deploy --network "$ENV"

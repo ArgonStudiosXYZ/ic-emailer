@@ -28,7 +28,8 @@ function initCanisterEnv() {
 
   return Object.entries(canisterConfig).reduce((prev, current) => {
     const [canisterName, canisterDetails] = current;
-    prev[canisterName.toUpperCase() + "_CANISTER_ID"] =
+    console.log("adding", canisterName);
+    prev["REACT_APP_" + canisterName.toUpperCase() + "_CANISTER_ID"] =
       canisterDetails[network];
     return prev;
   }, {});
@@ -45,7 +46,7 @@ module.exports = {
   target: "web",
   mode: isDevelopment ? "development" : "production",
   entry: {
-    index: path.join(__dirname, frontend_entry).replace(/\.html$/, ".jsx"),
+    index: path.join(__dirname, frontend_entry).replace(/\.html$/, ".tsx"),
   },
   devtool: isDevelopment ? "source-map" : false,
   optimization: {
@@ -76,6 +77,10 @@ module.exports = {
     rules: [
       { test: /\.(ts|tsx|jsx)$/, loader: "ts-loader" },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      {
+        test: /\.svg$/,
+        use: ["@svgr/webpack"],
+      },
     ],
   },
   plugins: [
@@ -85,6 +90,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
+      REACT_APP_DFX_NETWORK: process.env.DFX_NETWORK || "local",
       ...canisterEnvVariables,
     }),
     new webpack.ProvidePlugin({

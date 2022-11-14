@@ -10,17 +10,22 @@
   ],
   "scripts": {
     "build": "webpack",
-    "prebuild": "npm run copy:types",
+    "prebuild": "npm run generate",
     "start": "webpack serve --mode development --env development",
-    "prestart": "npm run copy:types",
-    "copy:types": "rsync -avr .dfx/$(echo ${DFX_NETWORK:-'**'})/canisters/** --exclude='assets/' --exclude='idl/' --exclude='*.wasm' --exclude='*.most' --delete src/declarations"
+    "prestart": "npm run generate",
+    "generate": "dfx generate emailer_backend"
   },
   "devDependencies": {
-    "@dfinity/agent": "0.14.0",
-    "@dfinity/candid": "0.14.0",
-    "@dfinity/principal": "0.14.0",
+    "@dfinity/agent": "0.14.1",
+    "@dfinity/auth-client": "^0.14.1",
+    "@dfinity/authentication": "^0.14.1",
+    "@dfinity/candid": "0.14.1",
+    "@dfinity/identity": "^0.14.1",
+    "@dfinity/principal": "0.14.1",
+    "@types/react": "^18.0.25",
     "assert": "2.0.0",
     "buffer": "6.0.3",
+    "crypto-browserify": "^3.12.0",
     "css-loader": "^6.7.1",
     "events": "3.3.0",
     "html-webpack-plugin": "5.5.0",
@@ -45,6 +50,7 @@
     "last 2 edge version"
   ],
   "dependencies": {
+    "@svgr/webpack": "^6.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.38.0",

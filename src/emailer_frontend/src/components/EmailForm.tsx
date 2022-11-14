@@ -1,7 +1,8 @@
-import React, { Loading, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { emailer_backend } from "../../../declarations/emailer_backend";
 import { toast } from "react-toastify";
+import { useKeys } from "../provider/KeyProvider";
+import { actorClient } from "../services/actorClient";
 
 export const validEmailRegex =
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -20,35 +21,53 @@ export const EmailForm = () => {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+  const { removeKey } = useKeys();
 
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await emailer_backend.sendEmail(
+      const response = await actorClient.sendEmail(
         data.recipent,
         data.subject,
         data.body
       );
-      if (response.Ok) {
+      if ("Ok" in response) {
         toast.success(response.Ok);
       } else {
         toast.error(response.Err);
       }
     } catch (error) {
+      console.error(error);
       toast("Error", error);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleRemove = async () => {
+    try {
+      setLoading(true);
+      await removeKey();
+    } finally {
+      setLoading(false);
+    }
+  };
+  console.log({ loading });
   return (
     <form className="email-form" onSubmit={handleSubmit(onSubmit)}>
+      <h2>
+        You have a courier api key registered{" "}
+        <a className="remove" onClick={() => handleRemove()}>
+          Remove
+        </a>
+      </h2>
+
       <div>
         <img src="logo.png" alt="DFINITY logo" />
       </div>
 
       {errors?.recipent?.message && (
-        <p className="error-text">{errors?.recipent.message}</p>
+        <p className="error-text">{errors?.recipent?.message + ""}</p>
       )}
 
       <input
@@ -75,7 +94,7 @@ export const EmailForm = () => {
         {loading && (
           <i className="fa fa-refresh fa-spin" style={{ marginRight: "5px" }} />
         )}
-        {loading && <span>Sending email...</span>}
+        {loading && <span>Processing...</span>}
         {!loading && <span>Send email</span>}
       </button>
     </form>

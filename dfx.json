@@ -1,29 +1,45 @@
 {
-    "canisters": {
-        "emailer_backend": {
-            "main": "src/emailer_backend/main.mo",
-            "type": "motoko"
-        },
-        "emailer_frontend": {
-            "dependencies": ["emailer_backend"],
-            "frontend": {
-                "entrypoint": "src/emailer_frontend/src/index.html"
-            },
-            "source": ["src/emailer_frontend/assets", "dist/emailer_frontend/"],
-            "type": "assets"
-        }
+  "canisters": {
+    "emailer_backend": {
+      "main": "src/emailer_backend/main.mo",
+      "type": "motoko"
     },
-    "defaults": {
-        "build": {
-            "args": "",
-            "packtool": "vessel sources"
-        }
+    "emailer_frontend": {
+      "dependencies": ["emailer_backend"],
+      "frontend": {
+        "entrypoint": "src/emailer_frontend/src/index.html"
+      },
+      "source": ["src/emailer_frontend/assets", "dist/emailer_frontend/"],
+      "type": "assets"
     },
-    "networks": {
-        "local": {
-            "bind": "127.0.0.1:8000",
-            "type": "ephemeral"
-        }
+    "internet_identity": {
+      "__0": "The development build of Internet Identity. For more information, see https://github.com/dfinity/internet-identity#build-features-and-flavors",
+
+      "type": "custom",
+      "candid": "internet_identity.did",
+      "wasm": "internet_identity.wasm",
+
+      "__1": "There is no standard way to pull remote canisters, so instead we have a dummy build script that",
+      "__2": "simply downloads the Internet Identity canister and Candid description.",
+      "__3": "See also: https://github.com/dfinity/sdk/issues/2085",
+      "build": "./scripts/download-did-and-wasm"
     },
-    "version": 1
+    "canister_to_canister_backend": {
+      "main": "src/emailer_backend/main.mo",
+      "type": "motoko"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": "vessel sources"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "version": 1
 }
