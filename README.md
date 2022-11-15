@@ -6,19 +6,17 @@ This example showcases how you can use http outcalls to call a 3rd party provide
 
 Due to the implementation of [https outcalls](https://internetcomputer.org/docs/current/developer-docs/integrations/http_requests/) sending a request from each replica, idempotency was key to not sending duplicate emails. Courier provides an ability to pass an [idempotency key](https://www.courier.com/docs/reference/idempotent-requests/#:~:text=An%20idempotency%20key%20is%20a,enough%20entropy%20to%20avoid%20collisions.). Courier can connect to one of your email providers and send an email on your behalf.
 
-To learn more before you start working with IC, see the following documentation available online:
-
-**_How this example works_**
+**_Canister Structure_**
 This example includes four containers:
 
 - A frontend container containing a react application used to register api key and a form to send an email request to courier.
-- Along side the front end canister an instance of the [internet identiy](https://github.com/dfinity/internet-identity) container is provided to authenticate against.
+- Along side the front end canister an instance of the [internet identity](https://github.com/dfinity/internet-identity) container is provided to authenticate against.
 - A backend Motoko canister is included to handle registering an api key against a user, and calling the courier api.
-- Another backend cansiter to demonstrate canister to canister calls
+- Another backend canister to demonstrate canister to canister calls
 
-After authenticating with internet identity using [easy-to-use library (agent-js)](https://github.com/dfinity/agent-js), requests sent to the backend container can access the calling principal. Calling the `registerKey` function passing the courier api will extract the principal id and store it in a hashmap `userKeyMap` with the key `userId` => `courierApiKey`.
+After authenticating with internet identity using [easy-to-use library (agent-js)](https://github.com/dfinity/agent-js), requests sent to the backend container can access the calling principal. Calling the `registerKey` function passing the courier api key will extract the principal id and store it in a hashmap `userKeyMap` with the key `userId` => `courierApiKey`.
 
-Using this [library](https://github.com/aviate-labs/uuid.mo) to generate a uuid to be used as an idempotency key sent to courier.
+It uses this [library](https://github.com/aviate-labs/uuid.mo) to generate a uuid to be used as an idempotency key sent to courier.
 
 ## Prerequisites
 
@@ -35,7 +33,7 @@ Vessel is a package manager for ic canisters.
 Follow the instructions [here](https://github.com/dfinity/vessel) to install the vessel binary.
 
 **Courier**
-Sign up with courier and connect one of your email providers.
+Sign up with [courier](https://app.courier.com/signup) and connect one of your email providers.
 
 ## Running the project locally
 
@@ -48,7 +46,7 @@ If you want to test your project locally, you can use the following commands:
 
 Once the job completes, your application will be available at `http://localhost:8000?canisterId={asset_canister_id}`. There will be a link in the terminal to open the frontend canister.
 
-### Steps to test flow
+### Steps to run example
 
 1. Press the `open with internet identity` button on the home page.
 2. It should open a new tab pointing to `http://localhost:8000/?canisterId={ii_canister_id}#authorize`. This is the local II container we spun up.
