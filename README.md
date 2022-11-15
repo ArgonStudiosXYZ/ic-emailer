@@ -1,6 +1,6 @@
 # IC Emailer
 
-This example showcases how you can use http outcalls to call a 3rd party provider [Courier](https://www.courier.com/docs/guides/getting-started/nodejs/).
+This example showcases how you can use http outcalls to call a 3rd party provider to send email.[Courier](https://www.courier.com/docs/guides/getting-started/nodejs/). Granting courier access to one of your email providers (eg gmail) it can send emails on our behalf via a http post request to their api.
 
 **_Why Courier_**
 
