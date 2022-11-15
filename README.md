@@ -2,11 +2,12 @@
 
 This example showcases how you can use http outcalls to call a 3rd party provider to send email.[Courier](https://www.courier.com/docs/guides/getting-started/nodejs/). Granting courier access to one of your email providers (eg gmail) it can send emails on our behalf via a http post request to their api.
 
-**_Why Courier_**
+## Why Courier
 
 Due to the implementation of [https outcalls](https://internetcomputer.org/docs/current/developer-docs/integrations/http_requests/) sending a request from each replica, idempotency was key to not sending duplicate emails. Courier provides an ability to pass an [idempotency key](https://www.courier.com/docs/reference/idempotent-requests/#:~:text=An%20idempotency%20key%20is%20a,enough%20entropy%20to%20avoid%20collisions.). Courier can connect to one of your email providers and send an email on your behalf.
 
-**_Canister Structure_**
+## Canister Structure
+
 This example includes four containers:
 
 - A frontend container containing a react application used to register api key and a form to send an email request to courier.
@@ -20,7 +21,8 @@ It uses this [library](https://github.com/aviate-labs/uuid.mo) to generate a uui
 
 ## Prerequisites
 
-**DFX**
+### DFX
+
 Version 12 is required for http outcalls
 
 ```bash
@@ -28,11 +30,13 @@ DFX_VERSION=0.12.0-beta.3 sh -ci "$(curl -fsSL https://internetcomputer.org/inst
 
 ```
 
-**Vessel**
+### Vessel
+
 Vessel is a package manager for ic canisters.
 Follow the instructions [here](https://github.com/dfinity/vessel) to install the vessel binary.
 
-**Courier**
+### Courier
+
 Sign up with [courier](https://app.courier.com/signup) and connect one of your email providers.
 
 ## Running the project locally
